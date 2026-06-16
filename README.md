@@ -10,6 +10,7 @@ A Gradio web app that uses **DINOv2** embeddings and **cosine similarity** to fi
 - Side-by-side gallery comparing kept vs removed similar images
 - Output ZIPs named after the source folder (e.g. `class (1)_unique.zip`)
 - Original image filenames preserved inside ZIPs
+- **Mass processing:** parent folder with multiple subfolders processed independently
 
 ## Requirements
 
@@ -174,7 +175,7 @@ A Gradio web app that uses **DINOv2** embeddings and **cosine similarity** to fi
    - `{folder_name}_similar.zip` — images removed as duplicates
    - CSV report and visual comparison gallery
 
-### Example
+### Example (single folder)
 
 Local folder:
 
@@ -188,6 +189,42 @@ Output ZIPs:
 class (1)_unique.zip
 class (1)_similar.zip
 ```
+
+### Mass processing (multiple subfolders)
+
+Enter a **parent folder** that contains several image subfolders. The app auto-detects mass mode when there are **2 or more** immediate subfolders with images.
+
+Input parent folder:
+
+```text
+/Users/you/Pictures/Class 1 Frames
+```
+
+Subfolders processed independently:
+
+```text
+class (1)
+level_1_04
+level_1_05
+...
+```
+
+Output ZIPs are written **into the parent folder**:
+
+```text
+Class 1 Frames/class (1)_unique.zip
+Class 1 Frames/class (1)_similar.zip
+Class 1 Frames/level_1_04_unique.zip
+Class 1 Frames/level_1_04_similar.zip
+...
+```
+
+Each subfolder also gets a CSV report: `{subfolder}_report.csv`.
+
+- Images in different subfolders are **never** compared to each other
+- Memory is cleared between subfolders (garbage collection + GPU cache flush)
+- Gallery previews in the UI show results from the first processed subfolder
+- Failed subfolders are logged in the summary; remaining folders still run
 
 ---
 
