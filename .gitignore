@@ -1,0 +1,24 @@
+# Virtual environments
+.venv/
+.venv_clean/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local data folders (not part of the app)
+Raw/
+Class 1 to 4 dashcam videos/
+
+# App output / temp
+*.zip
+dedupe_report.csv
